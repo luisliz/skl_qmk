@@ -2,6 +2,13 @@ version: 36
 jobs:
 - name: Repo Sync
   steps:
+  - !PushRepository
+    name: qmk_push
+    remoteUrl: https://github.com/luisliz/skl_qmk
+    userName: luisliz
+    passwordSecret: github_pat
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PullRepository
     name: qmk_pull
     remoteUrl: https://github.com/luisliz/skl_qmk
@@ -9,13 +16,6 @@ jobs:
     passwordSecret: github_pat
     refs: refs/heads/* refs/tags/*
     withLfs: false
-    force: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !PushRepository
-    name: qmk_pull
-    remoteUrl: https://github.com/luisliz/skl_qmk
-    userName: luisliz
-    passwordSecret: github_pat
     force: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
